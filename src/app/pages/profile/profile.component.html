@@ -1,0 +1,88 @@
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">{{ emp?.firstName }} {{ emp?.lastName }}</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Email:</strong> {{ emp?.email }}</p>
+            <p><strong>Phone:</strong> {{ emp?.phone }}</p>
+            <p>
+              <strong>Address:</strong> {{ emp?.address?.streetAddress }},
+              {{ emp?.address?.city }}, {{ emp?.address?.state }}
+              {{ emp?.address?.zipCode }}
+            </p>
+          </div>
+          <div class="col-md-6">
+            <p>
+              <strong>Current Salary:</strong>
+              {{ emp?.employeeDetails?.currentSalary }}
+            </p>
+            <p>
+              <strong>Designation:</strong>
+              {{ emp?.employeeDetails?.designation }}
+            </p>
+            <p>
+              <strong>Date of Joining:</strong>
+              {{ emp?.employeeDetails?.dateOfJoining }}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <h5>Education</h5>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item"
+            *ngFor="let education of emp?.educationList"
+          >
+            <h6 class="mb-1">{{ education?.degree }}</h6>
+            <div>{{ education?.institution }}</div>
+            <div>{{ education?.startDate }} - {{ education?.endDate }}</div>
+          </li>
+        </ul>
+        <h5>Certifications</h5>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item"
+            *ngFor="let certification of emp?.certificationList"
+          >
+            <h6 class="mb-1">{{ certification?.certificationName }}</h6>
+            <div>{{ certification?.certificationAuthority }}</div>
+            <div>
+              {{ certification?.dateEarned }} -
+              {{ certification?.certificationNumber }}
+            </div>
+          </li>
+        </ul>
+        <h5>Employment History</h5>
+        <ul class="list-group mb-3">
+          <li
+            class="list-group-item"
+            *ngFor="let employment of emp?.employmentList"
+          >
+            <h6 class="mb-1">{{ employment?.title }}</h6>
+            <div>{{ employment?.employer }}</div>
+            <div>
+              {{ employment?.startDate }} -
+              {{ employment?.endDate || "Present" }}
+            </div>
+          </li>
+        </ul>
+        <h5>Project Details</h5>
+        <p>
+          <strong>Title:</strong>
+          {{ emp?.employeeDetails?.projectDetails?.projectTitle }}
+        </p>
+        <p>
+          <strong>Description:</strong>
+          {{ emp?.employeeDetails?.projectDetails?.projectDescription }}
+        </p>
+        <p>
+          <strong>Duration:</strong>
+          {{ emp?.employeeDetails?.projectDetails?.startDate }} -
+          {{ emp?.employeeDetails?.projectDetails?.endDate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

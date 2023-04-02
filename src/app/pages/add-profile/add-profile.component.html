@@ -1,0 +1,440 @@
+<div class="container-fluid">
+  <app-page-title
+    [title]="this.isUpdate ? 'Update Employee Details' : 'Add Employee Details'"
+    [breadcrumbItems]="breadCrumbItems"
+  ></app-page-title>
+
+  <div class="col-lg-12">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Personal Info</h4>
+
+              <div class="mb-3">
+                <label>First Name:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="firstName"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>Last Name:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="lastName"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>Email:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="email"
+                  formControlName="email"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>Phone:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="phone"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6" formGroupName="address">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Address</h4>
+
+              <div class="mb-3">
+                <label>Street Address:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="streetAddress"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>City:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="city"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>State:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="text"
+                  formControlName="state"
+                />
+              </div>
+
+              <div class="mb-3">
+                <label>Zip Code:</label>
+                <input
+                  [readonly]="isreadonly"
+                  class="form-control"
+                  type="number"
+                  formControlName="zipCode"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Education Details</h4>
+              <div formArrayName="educationList">
+                <div
+                  *ngFor="
+                    let education of employeeForm.get('educationList')
+                      ?.controls;
+                    let i = index
+                  "
+                >
+                  <div class="row" [formGroupName]="i">
+                    <div class="mb-3 col-lg-3">
+                      <label>Degree & Field of study:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="degree"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>Institution:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="institution"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>start Date</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="date"
+                        formControlName="startDate"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>end Date</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="date"
+                        formControlName="endDate"
+                      />
+                    </div>
+
+                    <div class="col-lg-2 align-self-center">
+                      <div class="d-grid">
+                        <button
+                          type="button"
+                          (click)="removeEducation(i)"
+                          class="btn btn-primary"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success mt-3 mt-lg-0"
+                  (click)="addEducation()"
+                >
+                  Add Education
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Certifications</h4>
+              <div formArrayName="certificationList">
+                <div
+                  *ngFor="
+                    let certification of employeeForm.get('certificationList')
+                      ?.controls;
+                    let i = index
+                  "
+                >
+                  <div class="row" [formGroupName]="i">
+                    <div class="mb-3 col-lg-2">
+                      <label>Certification Number:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="certificationNumber"
+                      />
+                    </div>
+                    <div class="mb-3 col-lg-2">
+                      <label>Certification Name:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="certificationName"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>Certification Authority:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="certificationAuthority"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>Date Earned:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="date"
+                        formControlName="dateEarned"
+                      />
+                    </div>
+
+                    <div class="col-lg-2 align-self-center">
+                      <div class="d-grid">
+                        <button
+                          type="button"
+                          (click)="removeCertification(i)"
+                          class="btn btn-primary"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-success mt-3 mt-lg-0"
+                  (click)="addCertification()"
+                >
+                  Add Certification
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title mb-4">Employment</h4>
+              <div formArrayName="employmentList">
+                <div
+                  *ngFor="
+                    let employment of employeeForm.get('employmentList')
+                      ?.controls;
+                    let i = index
+                  "
+                >
+                  <div class="row" [formGroupName]="i">
+                    <div class="mb-3 col-lg-2">
+                      <label>Company:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="employer"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>Position:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="text"
+                        formControlName="title"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>Start Date:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="date"
+                        formControlName="startDate"
+                      />
+                    </div>
+
+                    <div class="mb-3 col-lg-2">
+                      <label>End Date:</label>
+                      <input
+                        [readonly]="isreadonly"
+                        class="form-control"
+                        type="date"
+                        formControlName="endDate"
+                      />
+                    </div>
+
+                    <div class="col-lg-2 align-self-center">
+                      <div class="d-grid">
+                        <button
+                          type="button"
+                          (click)="removeEmployment(i)"
+                          class="btn btn-primary"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-success mt-3 mt-lg-0"
+                  (click)="addEmployment()"
+                >
+                  Add Employment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div formGroupName="employeeDetails">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Employee Details</h4>
+            <div class="row">
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="currentSalary">Current Salary</label>
+                  <input
+                    [readonly]="isreadonly"
+                    class="form-control"
+                    type="number"
+                    formControlName="currentSalary"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="designation">Designation</label>
+                  <input
+                    [readonly]="isreadonly"
+                    class="form-control"
+                    type="text"
+                    formControlName="designation"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="mb-3">
+                  <label for="dateOfJoining">Date of Joining</label>
+                  <input
+                    [readonly]="isreadonly"
+                    class="form-control"
+                    type="date"
+                    formControlName="dateOfJoining"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div formGroupName="projectDetails">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title mb-4">Project Details</h4>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label for="projectTitle">Project Title</label>
+                        <input
+                          [readonly]="isreadonly"
+                          class="form-control"
+                          type="text"
+                          formControlName="projectTitle"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="projectDescription"
+                          >Project Description</label
+                        >
+                        <input
+                          [readonly]="isreadonly"
+                          class="form-control"
+                          type="text"
+                          formControlName="projectDescription"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="mb-3">
+                        <label for="startDate">Start Date</label>
+                        <input
+                          [readonly]="isreadonly"
+                          class="form-control"
+                          type="date"
+                          formControlName="startDate"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label for="endDate">End Date</label>
+                        <input
+                          [readonly]="isreadonly"
+                          class="form-control"
+                          type="date"
+                          formControlName="endDate"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
