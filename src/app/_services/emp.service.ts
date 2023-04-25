@@ -1,8 +1,10 @@
+import { API_URL } from "./../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
 
-const AUTH_API = "http://localhost:8080/employees/";
+const AUTH_API = API_URL + "/employees/";
 
 const httpOptions = {
   headers: new HttpHeaders({
